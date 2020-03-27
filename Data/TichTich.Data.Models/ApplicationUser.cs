@@ -4,9 +4,9 @@ namespace TichTich.Data.Models
     using System;
     using System.Collections.Generic;
 
-    using TichTich.Data.Common.Models;
-
     using Microsoft.AspNetCore.Identity;
+
+    using TichTich.Data.Common.Models;
 
     public class ApplicationUser : IdentityUser, IAuditInfo, IDeletableEntity
     {
@@ -16,6 +16,9 @@ namespace TichTich.Data.Models
             this.Roles = new HashSet<IdentityUserRole<string>>();
             this.Claims = new HashSet<IdentityUserClaim<string>>();
             this.Logins = new HashSet<IdentityUserLogin<string>>();
+            this.Results = new HashSet<Result>();
+            this.RacerRaces = new HashSet<RacerRace>();
+
         }
 
         // Audit info
@@ -33,5 +36,9 @@ namespace TichTich.Data.Models
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
 
         public virtual ICollection<IdentityUserLogin<string>> Logins { get; set; }
+
+        public virtual ICollection<Result> Results { get; set; }
+
+        public virtual ICollection<RacerRace> RacerRaces { get; set; }
     }
 }

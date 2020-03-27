@@ -3,9 +3,9 @@
     using System;
     using System.Threading.Tasks;
 
-    using TichTich.Data.Common;
-
     using Microsoft.EntityFrameworkCore;
+
+    using TichTich.Data.Common;
 
     public class DbQueryRunner : IDbQueryRunner
     {

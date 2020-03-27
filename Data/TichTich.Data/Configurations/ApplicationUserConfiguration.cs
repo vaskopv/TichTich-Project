@@ -1,8 +1,8 @@
 ﻿namespace TichTich.Data.Configurations
 {
-    using TichTich.Data.Models;
     using Microsoft.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore.Metadata.Builders;
+    using TichTich.Data.Models;
 
     public class ApplicationUserConfiguration : IEntityTypeConfiguration<ApplicationUser>
     {

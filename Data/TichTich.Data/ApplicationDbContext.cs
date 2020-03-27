@@ -6,11 +6,10 @@
     using System.Threading;
     using System.Threading.Tasks;
 
-    using TichTich.Data.Common.Models;
-    using TichTich.Data.Models;
-
     using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
     using Microsoft.EntityFrameworkCore;
+    using TichTich.Data.Common.Models;
+    using TichTich.Data.Models;
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser, ApplicationRole, string>
     {
@@ -25,6 +24,14 @@
         }
 
         public DbSet<Setting> Settings { get; set; }
+
+        public DbSet<Distance> Distances { get; set; }
+
+        public DbSet<Race> Races { get; set; }
+
+        public DbSet<Result> Results { get; set; }
+
+        public DbSet<RacerRace> RacerRaces { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 
@@ -47,6 +54,8 @@
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
+            RacerRacesMapping(builder);
+
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
 
@@ -72,6 +81,22 @@
             {
                 foreignKey.DeleteBehavior = DeleteBehavior.Restrict;
             }
+        }
+
+        private static void RacerRacesMapping(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<RacerRace>()
+                .HasKey(rr => new { rr.RaceId, rr.RacerId });
+
+            modelBuilder.Entity<RacerRace>()
+                .HasOne(rr => rr.Racer)
+                .WithMany(r => r.RacerRaces)
+                .HasForeignKey(rr => rr.RacerId);
+
+            modelBuilder.Entity<RacerRace>()
+                .HasOne(rr => rr.Race)
+                .WithMany(r => r.Racers)
+                .HasForeignKey(rr => rr.RaceId);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
