@@ -27,6 +27,8 @@
                           {
                               new RolesSeeder(),
                               new SettingsSeeder(),
+                              new RaceSeeder(),
+                              new DistanceSeeder(),
                           };
 
             foreach (var seeder in seeders)

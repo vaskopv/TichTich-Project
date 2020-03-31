@@ -1,9 +1,8 @@
 ﻿namespace TichTich.Web.ViewModels.Settings
 {
+    using AutoMapper;
     using TichTich.Data.Models;
     using TichTich.Services.Mapping;
-
-    using AutoMapper;
 
     public class SettingViewModel : IMapFrom<Setting>, IHaveCustomMappings
     {

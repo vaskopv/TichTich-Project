@@ -2,9 +2,8 @@
 {
     using System.Diagnostics;
 
-    using TichTich.Web.ViewModels;
-
     using Microsoft.AspNetCore.Mvc;
+    using TichTich.Web.ViewModels;
 
     public class HomeController : BaseController
     {

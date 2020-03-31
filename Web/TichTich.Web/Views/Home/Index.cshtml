@@ -1,9 +1,30 @@
-﻿@using TichTich.Common
+﻿<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
+@using TichTich.Common
+@using TichTich.Data.Models
 @{
     this.ViewData["Title"] = "Home Page";
 }
 
 <div class="text-center">
     <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+    <div class="row">
+        <div class="col-lg-6">
+            <a href="/RoadRaces">
+                <figure class="figure">
+                    <img src="../images/RoadRace.jpg" class="figure-img img-fluid rounded" alt="Road">
+                    <figcaption class="figure-caption text-left">
+                        Road races
+                    </figcaption>
+                </figure>
+            </a>
+        </div>
+        <div class="col-lg-6">
+            <a href="/TrailRaces">
+                <figure class="figure">
+                    <img src="../images/TrailRace.jpg" class="figure-img img-fluid rounded" alt="Trail">
+                    <figcaption class="figure-caption text-right">Trail races</figcaption>
+                </figure>
+            </a>
+        </div>
+    </div>
 </div>

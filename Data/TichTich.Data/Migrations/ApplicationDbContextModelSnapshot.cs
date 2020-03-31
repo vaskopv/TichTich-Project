@@ -313,6 +313,12 @@ namespace TichTich.Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
+                    b.Property<int>("RaceType")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TerrainType")
+                        .HasColumnType("int");
+
                     b.HasKey("Id");
 
                     b.HasIndex("IsDeleted");
