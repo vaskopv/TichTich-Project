@@ -33,6 +33,8 @@
 
         public DbSet<RacerRace> RacerRaces { get; set; }
 
+        public DbSet<DistanceRace> DistanceRace { get; set; }
+
         public override int SaveChanges() => this.SaveChanges(true);
 
         public override int SaveChanges(bool acceptAllChangesOnSuccess)
@@ -55,6 +57,7 @@
         protected override void OnModelCreating(ModelBuilder builder)
         {
             RacerRacesMapping(builder);
+            DistanceRacesMapping(builder);
 
             // Needed for Identity models configuration
             base.OnModelCreating(builder);
@@ -97,6 +100,22 @@
                 .HasOne(rr => rr.Race)
                 .WithMany(r => r.Racers)
                 .HasForeignKey(rr => rr.RaceId);
+        }
+
+        private static void DistanceRacesMapping(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<DistanceRace>()
+                .HasKey(dr => new { dr.DistanceId, dr.RaceId });
+
+            modelBuilder.Entity<DistanceRace>()
+                .HasOne(dr => dr.Race)
+                .WithMany(d => d.Distances)
+                .HasForeignKey(dr => dr.RaceId);
+
+            modelBuilder.Entity<DistanceRace>()
+                .HasOne(dr => dr.Distance)
+                .WithMany(r => r.Races)
+                .HasForeignKey(dr => dr.RaceId);
         }
 
         private static void SetIsDeletedQueryFilter<T>(ModelBuilder builder)
