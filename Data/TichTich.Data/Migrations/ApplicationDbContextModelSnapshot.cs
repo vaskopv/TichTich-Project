@@ -189,6 +189,9 @@ namespace TichTich.Data.Migrations
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
+                    b.Property<string>("FullName")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
@@ -227,6 +230,9 @@ namespace TichTich.Data.Migrations
                     b.Property<string>("UserName")
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
+
+                    b.Property<string>("YearOfBirth")
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
@@ -499,7 +505,7 @@ namespace TichTich.Data.Migrations
             modelBuilder.Entity("TichTich.Data.Models.Race", b =>
                 {
                     b.HasOne("TichTich.Data.Models.ApplicationUser", "Organizer")
-                        .WithMany()
+                        .WithMany("Races")
                         .HasForeignKey("OrganizerId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
