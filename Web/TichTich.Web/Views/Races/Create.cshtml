@@ -1,0 +1,16 @@
+﻿@using TichTich.Data.Models.Enums;
+@model TichTich.Web.ViewModels.Races.CreateRaceInputModel
+@{
+    this.ViewData["Title"] = "Create race";
+}
+
+<h1>@this.ViewData["Title"]</h1>
+<form method="post" asp-action="Create">
+    <input asp-for="Name" />
+    <input asp-for="Description" />
+    @Html.DropDownList("TerrainType",
+                        new SelectList(Enum.GetValues(typeof(TerrainType))),
+                        "Selecy Terrain Type",
+                        new { @class = "form-control" })    
+    <input type="submit" class="btn btn-primary" />
+</form>

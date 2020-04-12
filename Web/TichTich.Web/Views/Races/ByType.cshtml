@@ -1,0 +1,18 @@
+﻿@model TichTich.Web.ViewModels.Races.ByTypeViewModel
+@{
+    this.ViewData["Title"] = $"{@Model.TerrainType} Race";
+}
+
+<h1>List of @Model.TerrainType Races!</h1>
+
+@foreach (var race in Model.Races)
+{
+    <div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">@race.Name</h5>
+            <h6 class="card-subtitle mb-2 text-muted">@race.OrganizerName</h6>
+            <p class="card-text">@race.Description</p>
+            <a href="#" class="card-link">Card link</a>
+        </div>
+    </div>
+}
