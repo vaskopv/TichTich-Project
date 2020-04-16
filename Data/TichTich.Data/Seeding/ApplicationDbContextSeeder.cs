@@ -6,6 +6,7 @@
 
     using Microsoft.Extensions.DependencyInjection;
     using Microsoft.Extensions.Logging;
+    using PersonalStockTrader.Data.Seeding;
 
     public class ApplicationDbContextSeeder : ISeeder
     {
@@ -29,6 +30,8 @@
                               new SettingsSeeder(),
                               new RaceSeeder(),
                               new DistanceSeeder(),
+                              new AdministratorSeeder(),
+                              new OrganizerSeeder(),
                           };
 
             foreach (var seeder in seeders)

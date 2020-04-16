@@ -10,7 +10,7 @@
     using TichTich.Services.Data;
     using TichTich.Web.ViewModels.Races;
 
-    public class RacesController : Controller
+    public class RacesController : BaseController
 
     {
         private readonly ApplicationDbContext db;
