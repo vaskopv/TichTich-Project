@@ -231,6 +231,9 @@ namespace TichTich.Data.Migrations
                         .HasColumnType("nvarchar(256)")
                         .HasMaxLength(256);
 
+                    b.Property<string>("UserRole")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("YearOfBirth")
                         .HasColumnType("nvarchar(max)");
 
@@ -326,7 +329,6 @@ namespace TichTich.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("OrganizerId")
-                        .IsRequired()
                         .HasColumnType("nvarchar(450)");
 
                     b.Property<int>("RaceType")
@@ -506,9 +508,7 @@ namespace TichTich.Data.Migrations
                 {
                     b.HasOne("TichTich.Data.Models.ApplicationUser", "Organizer")
                         .WithMany("Races")
-                        .HasForeignKey("OrganizerId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
+                        .HasForeignKey("OrganizerId");
                 });
 
             modelBuilder.Entity("TichTich.Data.Models.RacerRace", b =>

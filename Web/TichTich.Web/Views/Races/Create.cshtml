@@ -5,12 +5,29 @@
 }
 
 <h1>@this.ViewData["Title"]</h1>
-<form method="post" asp-action="Create">
-    <input asp-for="Name" />
-    <input asp-for="Description" />
-    @Html.DropDownList("TerrainType",
+
+<div class="col-md-4">
+    <form method="post" asp-action="Create">
+        <div class="form-group">
+            <label asp-for="Name"></label>
+            <input asp-for="Name" class="form-control" />
+            <span asp-validation-for="Name" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="Description"></label>
+            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+            <span asp-validation-for="Description" class="text-danger"></span>
+        </div>
+        <div class="form-group">
+            <label asp-for="TerrainType"></label>
+            @Html.DropDownList("TerrainType",
                         new SelectList(Enum.GetValues(typeof(TerrainType))),
                         "Selecy Terrain Type",
-                        new { @class = "form-control" })    
-    <input type="submit" class="btn btn-primary" />
-</form>
+                        new { @class = "form-control" })
+            <span asp-validation-for="TerrainType" class="text-danger" />
+
+        </div>
+        <br />
+        <input type="submit" class="btn btn-primary" />
+    </form>
+</div>

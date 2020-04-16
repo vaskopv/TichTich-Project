@@ -2,9 +2,9 @@
 {
     using System.Linq;
     using System.Threading.Tasks;
+
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
-    using Microsoft.EntityFrameworkCore;
     using TichTich.Data;
     using TichTich.Data.Models;
     using TichTich.Services.Data;
@@ -47,6 +47,11 @@
 
         public IActionResult Create()
         {
+            if (!this.User.Identity.IsAuthenticated)
+            {
+                return this.Redirect("/Identity/Account/Login");
+            }
+
             return this.View();
         }
 

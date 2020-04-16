@@ -110,6 +110,7 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("terrainType", "races/{type:minlength(3)}", new { controller = "Races", action = "ByType" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
+                        //endpoints.MapControllers();
                         endpoints.MapRazorPages();
                     });
         }

@@ -35,6 +35,8 @@ namespace TichTich.Data.Models
 
         public string YearOfBirth { get; set; }
 
+        public string UserRole { get; set; }
+
         public virtual ICollection<IdentityUserRole<string>> Roles { get; set; }
 
         public virtual ICollection<IdentityUserClaim<string>> Claims { get; set; }
