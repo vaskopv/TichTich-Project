@@ -1,4 +1,5 @@
-﻿@{
+﻿@model TichTich.Web.Controllers.PredictorInputViewModel;
+@{
     this.ViewData["Title"] = "Race Predictor";
 }
 
@@ -9,14 +10,13 @@
             Enter your half marathon time here to get a prediction for your marathon
             <br><br><br>
                     <form method="post" action="" class="form">
-                        Hr <input id="hours" type="text" name="hours" value="0" style="width:40px">&nbsp;&nbsp;
-                        Min <input id="minutes" type="text" name="minutes" value="00" style="width:40px">&nbsp;&nbsp;
-                        Sec <input id="seconds" type="text" name="seconds" value="00" style="width:40px">
+                        Hr <input id="hours" type="text" value="0-4" name="hours" style="width:40px">&nbsp;&nbsp;
+                        Min <input id="minutes" type="text" value="0-60" name="minutes" style="width:40px">&nbsp;&nbsp;
+                        Sec <input id="seconds" type="text" value="0-60" name="seconds" style="width:40px">
                         <br><br><br>
                         <input class="button" type="submit" onclick="calculate()" value="Predict my time">
                         <br><br><br>
-                        Result
-                        <input type="text" class="form-control" value="@ViewBag.Result" />
+                        Result: <input type="text" class="form-control" style="width:90px" value="@ViewBag.Result" />
                     </form>
         </div>
     </div>

@@ -14,9 +14,14 @@ namespace TichTich.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult RacePredictor(string hours, string minutes, string seconds)
+        public IActionResult RacePredictor(PredictorInputViewModel input)
         {
-            var time = TimeSpan.Parse(hours + ":" + minutes + ":" + seconds);
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
+
+            var time = TimeSpan.Parse(input.Hours.ToString() + ":" + input.Minutes.ToString() + ":" + input.Seconds.ToString());
             var result = time.TotalMinutes * Math.Pow(2, 1.15);
             this.ViewBag.Result = TimeSpan.FromMinutes(result).ToString("hh\\:mm\\:ss");
 
