@@ -29,9 +29,9 @@
                               new RolesSeeder(),
                               new SettingsSeeder(),
                               new RaceSeeder(),
-                              new DistanceSeeder(),
                               new AdministratorSeeder(),
                               new OrganizerSeeder(),
+                              new RolesSeeder(),
                           };
 
             foreach (var seeder in seeders)

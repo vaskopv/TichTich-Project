@@ -10,7 +10,6 @@ public class Race : BaseDeletableModel<int>
     {
         public Race()
         {
-            this.Distances = new HashSet<DistanceRace>();
             this.Racers = new HashSet<RacerRace>();
             this.Results = new HashSet<Result>();
         }
@@ -20,8 +19,7 @@ public class Race : BaseDeletableModel<int>
 
         public string Description { get; set; }
 
-        [Required]
-        public virtual ICollection<DistanceRace> Distances { get; set; }
+        public double Distance { get; set; }
 
         public ApplicationUser Organizer { get; set; }
 

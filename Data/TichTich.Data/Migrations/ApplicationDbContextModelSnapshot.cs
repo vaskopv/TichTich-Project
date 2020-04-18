@@ -252,53 +252,6 @@ namespace TichTich.Data.Migrations
                     b.ToTable("AspNetUsers");
                 });
 
-            modelBuilder.Entity("TichTich.Data.Models.Distance", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int")
-                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
-
-                    b.Property<DateTime>("CreatedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.Property<double>("Length")
-                        .HasColumnType("float");
-
-                    b.Property<DateTime?>("ModifiedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("Type")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("IsDeleted");
-
-                    b.ToTable("Distances");
-                });
-
-            modelBuilder.Entity("TichTich.Data.Models.DistanceRace", b =>
-                {
-                    b.Property<int>("DistanceId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("RaceId")
-                        .HasColumnType("int");
-
-                    b.HasKey("DistanceId", "RaceId");
-
-                    b.HasIndex("RaceId");
-
-                    b.ToTable("DistanceRace");
-                });
-
             modelBuilder.Entity("TichTich.Data.Models.Race", b =>
                 {
                     b.Property<int>("Id")
@@ -317,6 +270,9 @@ namespace TichTich.Data.Migrations
 
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<double>("Distance")
+                        .HasColumnType("float");
 
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
@@ -485,21 +441,6 @@ namespace TichTich.Data.Migrations
                     b.HasOne("TichTich.Data.Models.ApplicationUser", null)
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-                });
-
-            modelBuilder.Entity("TichTich.Data.Models.DistanceRace", b =>
-                {
-                    b.HasOne("TichTich.Data.Models.Distance", "Distance")
-                        .WithMany("Races")
-                        .HasForeignKey("RaceId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("TichTich.Data.Models.Race", "Race")
-                        .WithMany("Distances")
-                        .HasForeignKey("RaceId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
                 });
