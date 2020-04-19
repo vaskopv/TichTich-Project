@@ -5,6 +5,7 @@
     using System.Linq;
     using System.Threading.Tasks;
 
+    using TichTich.Common;
     using TichTich.Data.Models;
 
     public class RaceSeeder : ISeeder
@@ -16,19 +17,19 @@
                 return;
             }
 
-            var races = new List<string> { "Sofia Marathon", "Plovdiv Marathon", "Tryavna Ultra", "Vitosha 100"};
+            var races = new List<string> { "5kmRun", "10kmRun", "Sofia Half Marathon", "Plovdiv Marathon", "Tryavna Ultra", "Vitosha 100" };
+            var distances = new List<double> { 5, 10, 21.1, 42.2, 50, 100 };
 
-            foreach (var race in races)
+            for (int i = 0; i < races.Count(); i++)
             {
-                var rand = new Random();
-                List<int> result = Enumerable.Range(0, rand.Next(100))
-                .Select(x => rand.Next(10))
-                .ToList();
+                var race = races[i];
+
                 await dbContext.Races.AddAsync(new Race
                 {
                     Name = race,
                     Description = race,
-                    Organizer = dbContext.Users.FirstOrDefault(),
+                    Distance = distances[i],
+                    Organizer = dbContext.Users.Where(x => x.UserRole == GlobalConstants.OrganizerRoleName).FirstOrDefault(),
                 });
             }
         }

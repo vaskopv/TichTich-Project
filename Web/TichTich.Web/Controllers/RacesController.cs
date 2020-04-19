@@ -1,6 +1,7 @@
 ﻿namespace TichTich.Web.Controllers
 {
     using System.Linq;
+    using System.Security.Claims;
     using System.Threading.Tasks;
 
     using Microsoft.AspNetCore.Identity;
@@ -9,6 +10,7 @@
     using TichTich.Data.Models;
     using TichTich.Services.Data;
     using TichTich.Web.ViewModels.Races;
+    using X.PagedList;
 
     public class RacesController : BaseController
 
@@ -67,6 +69,59 @@
             var postId = await this.racesService.CreateAsync(input.Name, input.Description, user.Id, input.TerrainType);
 
             return this.RedirectToAction("ById", new { id = postId });
+        }
+
+        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
+        {
+            this.ViewBag.CurrentSort = sortOrder;
+            this.ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            this.ViewBag.DistanceSortParm = sortOrder == "Distance" ? "dist_desc" : "Distance";
+            this.ViewBag.ParticipantsSortParm = sortOrder == "Participants" ? "part_asc" : "Participants";
+
+            if (searchString != null)
+            {
+                page = 1;
+            }
+            else
+            {
+                searchString = currentFilter;
+            }
+
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            this.ViewBag.CurrentFilter = searchString;
+            var races = from r in this.db.Races.Where(x => x.OrganizerId == userId)
+                         select r;
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                races = races.Where(s => s.Name.Contains(searchString));
+            }
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    races = races.OrderByDescending(r => r.Name);
+                    break;
+                case "Distance":
+                    races = races.OrderBy(r => r.Distance);
+                    break;
+                case "dist_desc":
+                    races = races.OrderByDescending(r => r.Distance);
+                    break;
+                case "Participants":
+                    races = races.OrderBy(r => r.Racers.Count);
+                    break;
+                case "part_desc":
+                    races = races.OrderByDescending(r => r.Racers.Count);
+                    break;
+                default:
+                    races = races.OrderBy(r => r.Name);
+                    break;
+            }
+
+            int pageSize = 5;
+            int pageNumber = page ?? 1;
+            return this.View(races.ToPagedList(pageNumber, pageSize));
         }
     }
 }
