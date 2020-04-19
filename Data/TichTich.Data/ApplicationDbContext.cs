@@ -1,6 +1,7 @@
 ﻿namespace TichTich.Data
 {
     using System;
+    using System.Diagnostics;
     using System.Linq;
     using System.Reflection;
     using System.Threading;
@@ -30,6 +31,8 @@
         public DbSet<Result> Results { get; set; }
 
         public DbSet<RacerRace> RacerRaces { get; set; }
+
+        public DbSet<Source> Sources { get; set; }
 
         public override int SaveChanges() => this.SaveChanges(true);
 

@@ -1,4 +1,6 @@
-﻿namespace TichTich.Common
+﻿using System.Collections.Generic;
+
+namespace TichTich.Common
 {
     public static class GlobalConstants
     {
