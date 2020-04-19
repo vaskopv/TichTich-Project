@@ -18,11 +18,12 @@
             this.racesRepository = racesRepository;
         }
 
-        public async Task<int> CreateAsync(string name, string description, string orgnizerId, TerrainType terrainType)
+        public async Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType)
         {
             var race = new Race
             {
                 Name = name,
+                Distance = distance,
                 Description = description,
                 TerrainType = terrainType,
                 OrganizerId = orgnizerId,

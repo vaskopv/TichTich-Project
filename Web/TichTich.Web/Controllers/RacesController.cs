@@ -67,7 +67,7 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var postId = await this.racesService.CreateAsync(input.Name, input.Description, user.Id, input.TerrainType);
+            var postId = await this.racesService.CreateAsync(input.Name, input.Distance, input.Description, user.Id, input.TerrainType);
 
             return this.RedirectToAction("ById", new { id = postId });
         }

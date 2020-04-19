@@ -15,6 +15,6 @@
 
         public IEnumerable<Race> GetAllRaces();
 
-        Task<int> CreateAsync(string name, string description, string orgnizerId, TerrainType terrainType);
+        Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
     }
 }
