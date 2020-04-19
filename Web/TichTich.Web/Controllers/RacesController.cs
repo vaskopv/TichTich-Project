@@ -1,5 +1,6 @@
 ﻿namespace TichTich.Web.Controllers
 {
+    using System;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
@@ -92,7 +93,7 @@
             this.ViewBag.CurrentFilter = searchString;
             var races = from r in this.db.Races.Where(x => x.OrganizerId == userId)
                          select r;
-            if (!string.IsNullOrEmpty(searchString))
+            if (!String.IsNullOrEmpty(searchString))
             {
                 races = races.Where(s => s.Name.Contains(searchString));
             }
