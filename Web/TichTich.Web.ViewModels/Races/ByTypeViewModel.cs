@@ -1,7 +1,6 @@
 ﻿namespace TichTich.Web.ViewModels.Races
 {
     using System.Collections.Generic;
-    using TichTich.Data.Models.Enums;
 
     public class ByTypeViewModel
     {

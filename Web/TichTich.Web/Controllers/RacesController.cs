@@ -33,6 +33,7 @@
             var races = this.db.Races
                 .Select(x => new TerrainTypeViewModel()
                 {
+                    Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
                     OrganizerName = x.Organizer.UserName,
@@ -67,9 +68,9 @@
             }
 
             var user = await this.userManager.GetUserAsync(this.User);
-            var postId = await this.racesService.CreateAsync(input.Name, input.Distance, input.Description, user.Id, input.TerrainType);
+            var raceId = await this.racesService.CreateAsync(input.Name, input.Distance, input.Description, user.Id, input.TerrainType);
 
-            return this.RedirectToAction("ById", new { id = postId });
+            return this.RedirectToAction("ById", new { id = raceId });
         }
 
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
