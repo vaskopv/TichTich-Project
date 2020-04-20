@@ -75,7 +75,7 @@
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
             this.ViewBag.CurrentSort = sortOrder;
-            this.ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : "";
+            this.ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : string.Empty;
             this.ViewBag.DistanceSortParm = sortOrder == "Distance" ? "dist_desc" : "Distance";
             this.ViewBag.ParticipantsSortParm = sortOrder == "Participants" ? "part_asc" : "Participants";
 
