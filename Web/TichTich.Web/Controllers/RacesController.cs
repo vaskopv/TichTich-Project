@@ -97,5 +97,12 @@
 
             return this.View(viewModel);
         }
+
+        public IActionResult ById(int id)
+        {
+            var viewModel = this.racesService.GetById(id);
+
+            return this.View(viewModel);
+        }
     }
 }

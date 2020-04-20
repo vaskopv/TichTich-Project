@@ -16,11 +16,13 @@
     {
         private readonly IDeletableEntityRepository<Race> racesRepository;
         private readonly UserManager<ApplicationUser> userManager;
+        private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
 
-        public RacesService(IDeletableEntityRepository<Race> racesRepository, UserManager<ApplicationUser> userManager)
+        public RacesService(IDeletableEntityRepository<Race> racesRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<ApplicationUser> usersRepository)
         {
             this.racesRepository = racesRepository;
             this.userManager = userManager;
+            this.usersRepository = usersRepository;
         }
 
         public async Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType)
@@ -82,6 +84,26 @@
             }
 
             return races;
+        }
+
+        public ByIdViewModel GetById(int id)
+        {
+            var race = this.racesRepository.All().FirstOrDefault(x => x.Id == id);
+
+            var result = new ByIdViewModel
+            {
+                Name = race.Name,
+                OrganizerName = this.usersRepository
+                    .All()
+                    .FirstOrDefault(x => x.Id == race.OrganizerId)
+                    .UserName,
+                Description = race.Description,
+                Distance = race.Distance,
+                Racers = race.Racers,
+                Results = race.Results,
+            };
+
+            return result;
         }
 
         public IEnumerable<Race> GetByTerrainType(string type)
