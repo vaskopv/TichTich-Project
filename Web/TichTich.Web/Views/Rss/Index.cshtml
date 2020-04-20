@@ -2,8 +2,17 @@
     ViewData["Title"] = "News Feed";
 }
 <br />
-<h2>RSS Feed Reader</h2>
+<h2>News Feed</h2>
 <hr />
+<br />
+@using (Html.BeginForm("Index", "Rss", FormMethod.Get))
+{
+    <p>
+        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        <input type="submit" value="Search" />
+    </p>
+}
+
 <br />
 <table class="table table-hover">
     <thead>
@@ -17,13 +26,13 @@
     <tbody>
         @foreach (var item in Model)
         {
-        <tr>
-            <td><img src="@item.ImageUrl" width="100" class="mr-3" alt="@item.Source"></td>
-            <td>@item.Title</td>
-            <td><a href="@item.Source">Read Here</a></td>
-            <td>@item.PubDate.ToString("dd-MM-yyyy")</td>
-        </tr>
+            <tr>
+                <td><img src="@item.ImageUrl" width="100" class="mr-3" alt="@item.Source"></td>
+                <td>@item.Title</td>
+                <td><a href="@item.Source">Read Here</a></td>
+                <td>@item.PubDate.ToString("dd-MM-yyyy")</td>
+            </tr>
 
         }
     </tbody>
-</table> 
+</table>

@@ -10,6 +10,7 @@
     using TichTich.Data;
     using TichTich.Data.Models;
     using TichTich.Web.ViewModels;
+    using X.PagedList;
 
     public class RssController : Controller
     {
@@ -20,7 +21,7 @@
             this.db = db;
         }
 
-        public ActionResult Index()
+        public ActionResult Index(string searchString)
         {
             var rssUrl = this.db.Sources.Select(x => x.SourceUrl).ToList();
 
@@ -47,9 +48,15 @@
                 allNews.AddRange(rssFeedData);
             }
 
-            //this.ViewBag.RSSFeed = allNews.OrderByDescending(x => x.PubDate);
+            if (!string.IsNullOrEmpty(searchString))
+            {
+                allNews = allNews.Where(s => s.Title.Contains(searchString, StringComparison.InvariantCultureIgnoreCase)).ToList();
+            }
 
-            return this.View(allNews.OrderByDescending(x=> x.PubDate));
+            var sortedNews = allNews.OrderByDescending(x => x.PubDate);
+
+            return this.View(sortedNews);
+
         }
     }
 }
