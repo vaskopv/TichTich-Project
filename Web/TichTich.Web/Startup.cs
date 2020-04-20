@@ -64,6 +64,8 @@
             services.AddTransient<IEmailSender, NullMessageSender>();
             services.AddTransient<ISettingsService, SettingsService>();
             services.AddTransient<IRacesService, RacesService>();
+            services.AddTransient<ICalculatorsService, CalculatorsService>();
+            services.AddTransient<IRssService, RssService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -110,7 +112,6 @@
                         endpoints.MapControllerRoute("areaRoute", "{area:exists}/{controller=Home}/{action=Index}/{id?}");
                         endpoints.MapControllerRoute("terrainType", "races/{type:minlength(3)}", new { controller = "Races", action = "ByType" });
                         endpoints.MapControllerRoute("default", "{controller=Home}/{action=Index}/{id?}");
-                        //endpoints.MapControllers();
                         endpoints.MapRazorPages();
                     });
         }

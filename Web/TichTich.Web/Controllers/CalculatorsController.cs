@@ -1,13 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using AutoMapper.Configuration.Annotations;
+using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using TichTich.Services.Data;
 
 namespace TichTich.Web.Controllers
 {
     public class CalculatorsController : BaseController
     {
+        private readonly ICalculatorsService calculatorsService;
+
+        public CalculatorsController(ICalculatorsService calculatorsService)
+        {
+            this.calculatorsService = calculatorsService;
+        }
+
         public IActionResult RacePredictor()
         {
             return this.View();
@@ -21,8 +30,8 @@ namespace TichTich.Web.Controllers
                 return this.View(input);
             }
 
-            var time = TimeSpan.Parse(input.Hours.ToString() + ":" + input.Minutes.ToString() + ":" + input.Seconds.ToString());
-            var result = time.TotalMinutes * Math.Pow(2, 1.15);
+            var result = this.calculatorsService.Calculate(input);
+
             this.ViewBag.Result = TimeSpan.FromMinutes(result).ToString("hh\\:mm\\:ss");
 
             return this.View();
