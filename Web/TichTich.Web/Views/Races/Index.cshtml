@@ -1,5 +1,5 @@
 ﻿@using X.PagedList.Mvc.Core
-@model X.PagedList.IPagedList<TichTich.Data.Models.Race>
+@model TichTich.Web.ViewModels.Races.CombinedViewModel;
 
 <link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
 
@@ -15,25 +15,25 @@
 @using (Html.BeginForm("Index", "Races", FormMethod.Get))
 {
     <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+        Find by name: @Html.TextBox("SearchString", Model.SortedModel.CurrentFilter as string)
         <input type="submit" value="Search" />
     </p>
 }
 <table class="table">
     <tr>
         <th>
-            @Html.ActionLink("Name", "Index", new { sortOrder = ViewBag.NameSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Name", "Index", new { sortOrder = Model.SortedModel.NameSortPattern, currentFilter = Model.SortedModel.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Participants", "Index", new { sortOrder = ViewBag.ParticipantsSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Participants", "Index", new { sortOrder = Model.SortedModel.ParticipantsSortPattern, currentFilter = Model.SortedModel.CurrentFilter })
         </th>
         <th>
-            @Html.ActionLink("Distance", "Index", new { sortOrder = ViewBag.DistanceSortParm, currentFilter = ViewBag.CurrentFilter })
+            @Html.ActionLink("Distance", "Index", new { sortOrder = Model.SortedModel.DistanceSortPattern, currentFilter = Model.SortedModel.CurrentFilter })
         </th>
         <th></th>
     </tr>
 
-    @foreach (var item in Model)
+    @foreach (var item in Model.Races)
     {
         <tr>
             <td>
@@ -55,6 +55,6 @@
 
 </table>
 <br />
-Page @(Model.PageCount < Model.PageNumber ? 0 : Model.PageNumber) of @Model.PageCount
-@Html.PagedListPager(Model, page => Url.Action("Index",
+Page @(Model.Races.PageCount < Model.Races.PageNumber ? 0 : Model.Races.PageNumber) of @Model.Races.PageCount
+@Html.PagedListPager(Model.Races, page => Url.Action("Index",
     new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

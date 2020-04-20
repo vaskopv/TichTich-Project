@@ -74,55 +74,28 @@
 
         public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
         {
-            this.ViewBag.CurrentSort = sortOrder;
-            this.ViewBag.NameSortParm = string.IsNullOrEmpty(sortOrder) ? "name_desc" : string.Empty;
-            this.ViewBag.DistanceSortParm = sortOrder == "Distance" ? "dist_desc" : "Distance";
-            this.ViewBag.ParticipantsSortParm = sortOrder == "Participants" ? "part_asc" : "Participants";
-
-            if (searchString != null)
+            var sortModel = new RacesSortViewModel
             {
-                page = 1;
-            }
-            else
-            {
-                searchString = currentFilter;
-            }
+                CurrentSort = sortOrder,
+                NameSortPattern = string.IsNullOrEmpty(sortOrder) ? "name_desc" : string.Empty,
+                DistanceSortPattern = sortOrder == "Distance" ? "dist_desc" : "Distance",
+                ParticipantsSortPattern = sortOrder == "Participants" ? "part_asc" : "Participants",
+            };
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            this.ViewBag.CurrentFilter = searchString;
-            var races = from r in this.db.Races.Where(x => x.OrganizerId == userId)
-                         select r;
-            if (!String.IsNullOrEmpty(searchString))
-            {
-                races = races.Where(s => s.Name.Contains(searchString));
-            }
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    races = races.OrderByDescending(r => r.Name);
-                    break;
-                case "Distance":
-                    races = races.OrderBy(r => r.Distance);
-                    break;
-                case "dist_desc":
-                    races = races.OrderByDescending(r => r.Distance);
-                    break;
-                case "Participants":
-                    races = races.OrderBy(r => r.Racers.Count);
-                    break;
-                case "part_desc":
-                    races = races.OrderByDescending(r => r.Racers.Count);
-                    break;
-                default:
-                    races = races.OrderBy(r => r.Name);
-                    break;
-            }
-
             int pageSize = 5;
             int pageNumber = page ?? 1;
-            return this.View(races.ToPagedList(pageNumber, pageSize));
+
+            var races = this.racesService.GetAllRaces(sortOrder, searchString, page, sortModel, userId).ToPagedList(pageNumber, pageSize);
+
+            var viewModel = new CombinedViewModel
+            {
+                SortedModel = sortModel,
+                Races = races,
+            };
+
+            return this.View(viewModel);
         }
     }
 }

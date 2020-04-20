@@ -6,6 +6,7 @@
     using System.Threading.Tasks;
     using TichTich.Data.Models;
     using TichTich.Data.Models.Enums;
+    using TichTich.Web.ViewModels.Races;
 
     public interface IRacesService
     {
@@ -13,7 +14,7 @@
 
         T GetByType<T>(string type);
 
-        public IEnumerable<Race> GetAllRaces();
+        public IEnumerable<Race> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId);
 
         Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
     }
