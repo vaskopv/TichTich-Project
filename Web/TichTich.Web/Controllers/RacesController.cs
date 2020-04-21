@@ -11,7 +11,6 @@
     using TichTich.Data.Models;
     using TichTich.Services.Data;
     using TichTich.Web.ViewModels.Races;
-    using X.PagedList;
 
     public class RacesController : BaseController
 
@@ -73,35 +72,19 @@
             return this.RedirectToAction("ById", new { id = raceId });
         }
 
-        public ViewResult Index(string sortOrder, string currentFilter, string searchString, int? page)
-        {
-            var sortModel = new RacesSortViewModel
-            {
-                CurrentSort = sortOrder,
-                NameSortPattern = string.IsNullOrEmpty(sortOrder) ? "name_desc" : string.Empty,
-                DistanceSortPattern = sortOrder == "Distance" ? "dist_desc" : "Distance",
-                ParticipantsSortPattern = sortOrder == "Participants" ? "part_desc" : "Participants",
-            };
 
+        public IActionResult Index()
+        {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            int pageSize = 5;
-            int pageNumber = page ?? 1;
+            var races = this.racesService.GetByOrganizerId(userId);
 
-            var races = this.racesService.GetAllRaces(sortOrder, searchString, page, sortModel, userId).ToPagedList(pageNumber, pageSize);
-
-            var viewModel = new CombinedViewModel
-            {
-                SortedModel = sortModel,
-                Races = races,
-            };
-
-            return this.View(viewModel);
+            return this.View(races);
         }
 
         public IActionResult ById(int id)
         {
-            var viewModel = this.racesService.GetById(id);
+            var viewModel = this.racesService.GetByRaceId(id);
 
             return this.View(viewModel);
         }

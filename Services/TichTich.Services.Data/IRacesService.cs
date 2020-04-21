@@ -14,9 +14,11 @@
 
         T GetByType<T>(string type);
 
-        public ByIdViewModel GetById(int id);
+        public ICollection<ByIdViewModel> GetByOrganizerId(string id);
 
-        public IEnumerable<ByIdViewModel> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId);
+        public ByIdViewModel GetByRaceId(int id);
+
+        //public IEnumerable<ByIdViewModel> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId);
 
         Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
     }

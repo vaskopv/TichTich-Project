@@ -1,10 +1,12 @@
 ﻿namespace TichTich.Services.Data
 {
+    using AutoMapper.Configuration.Annotations;
     using Microsoft.AspNetCore.Identity;
     using System;
     using System.Collections.Generic;
     using System.Linq;
     using System.Security.Claims;
+    using System.Security.Cryptography.X509Certificates;
     using System.Threading.Tasks;
     using TichTich.Data.Common.Repositories;
     using TichTich.Data.Models;
@@ -44,74 +46,41 @@
             return race.Id;
         }
 
-        public IEnumerable<ByIdViewModel> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId)
+
+        public ICollection<ByIdViewModel> GetByOrganizerId(string id)
         {
-            if (searchString != null)
-            {
-                page = 1;
-            }
-            else
-            {
-                searchString = sortModel.CurrentFilter;
-            }
+            var races = this.racesRepository.All().Where(x => x.OrganizerId == id);
 
-            sortModel.CurrentFilter = searchString;
-            var races = new List<ByIdViewModel>();
-            var allRaces = this.racesRepository.All().Where(x => x.OrganizerId == userId);
+            var result = new List<ByIdViewModel>();
 
-            if (!String.IsNullOrEmpty(searchString))
+            foreach (var item in races)
             {
-                allRaces = allRaces.Where(s => s.Name.Contains(searchString));
+                var racersCount = this.racersRaceRepository.All().Where(x => x.RaceId == item.Id).Count();
+
+                result.Add(new ByIdViewModel
+                {
+                    Name = item.Name,
+                    Distance = item.Distance,
+                    RacersCount = racersCount,
+                });
             }
 
-            foreach (var item in allRaces)
-            {
-                races.Add(this.GetById(item.Id));
-            }
-
-
-            switch (sortOrder)
-            {
-                case "name_desc":
-                    races = races.OrderByDescending(r => r.Name).ToList();
-                    break;
-                case "Distance":
-                    races = races.OrderBy(r => r.Distance).ToList();
-                    break;
-                case "dist_desc":
-                    races = races.OrderByDescending(r => r.Distance).ToList();
-                    break;
-                case "Participants":
-                    races = races.OrderBy(r => r.RacersCount).ToList();
-                    break;
-                case "part_desc":
-                    races = races.OrderByDescending(r => r.RacersCount).ToList();
-                    break;
-                default:
-                    races = races.OrderBy(r => r.Name).ToList();
-                    break;
-            }
-
-            return races;
+            return result;
         }
 
-        public ByIdViewModel GetById(int id)
+        public ByIdViewModel GetByRaceId(int id)
         {
-            var race = this.racesRepository.All().FirstOrDefault(x => x.Id == id);
-
-            var count = this.racersRaceRepository.All().Where(x => x.RaceId == id).Count();
+            var race = this.racesRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
             var result = new ByIdViewModel
             {
-                Id = race.Id,
                 Name = race.Name,
                 OrganizerName = this.usersRepository
                     .All()
                     .FirstOrDefault(x => x.Id == race.OrganizerId)
                     .UserName,
-                Description = race.Description,
                 Distance = race.Distance,
-                RacersCount = count,
+                Description = race.Description,
                 Results = race.Results,
             };
 

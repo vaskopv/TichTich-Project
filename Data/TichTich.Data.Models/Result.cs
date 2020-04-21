@@ -2,6 +2,7 @@
 {
     using System;
     using System.ComponentModel.DataAnnotations;
+
     using TichTich.Data.Common.Models;
 
     public class Result : BaseDeletableModel<int>
