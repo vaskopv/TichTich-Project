@@ -17,12 +17,14 @@
         private readonly IDeletableEntityRepository<Race> racesRepository;
         private readonly UserManager<ApplicationUser> userManager;
         private readonly IDeletableEntityRepository<ApplicationUser> usersRepository;
+        private readonly IRepository<RacerRace> racersRaceRepository;
 
-        public RacesService(IDeletableEntityRepository<Race> racesRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<ApplicationUser> usersRepository)
+        public RacesService(IDeletableEntityRepository<Race> racesRepository, UserManager<ApplicationUser> userManager, IDeletableEntityRepository<ApplicationUser> usersRepository, IRepository<RacerRace> racersRaceRepository)
         {
             this.racesRepository = racesRepository;
             this.userManager = userManager;
             this.usersRepository = usersRepository;
+            this.racersRaceRepository = racersRaceRepository;
         }
 
         public async Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType)
@@ -42,7 +44,7 @@
             return race.Id;
         }
 
-        public IEnumerable<Race> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId)
+        public IEnumerable<ByIdViewModel> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId)
         {
             if (searchString != null)
             {
@@ -54,32 +56,39 @@
             }
 
             sortModel.CurrentFilter = searchString;
-            var races = from r in this.racesRepository.All().Where(x => x.OrganizerId == userId)
-                        select r;
+            var races = new List<ByIdViewModel>();
+            var allRaces = this.racesRepository.All().Where(x => x.OrganizerId == userId);
+
             if (!String.IsNullOrEmpty(searchString))
             {
-                races = races.Where(s => s.Name.Contains(searchString));
+                allRaces = allRaces.Where(s => s.Name.Contains(searchString));
             }
+
+            foreach (var item in allRaces)
+            {
+                races.Add(this.GetById(item.Id));
+            }
+
 
             switch (sortOrder)
             {
                 case "name_desc":
-                    races = races.OrderByDescending(r => r.Name);
+                    races = races.OrderByDescending(r => r.Name).ToList();
                     break;
                 case "Distance":
-                    races = races.OrderBy(r => r.Distance);
+                    races = races.OrderBy(r => r.Distance).ToList();
                     break;
                 case "dist_desc":
-                    races = races.OrderByDescending(r => r.Distance);
+                    races = races.OrderByDescending(r => r.Distance).ToList();
                     break;
                 case "Participants":
-                    races = races.OrderBy(r => r.Racers.Count);
+                    races = races.OrderBy(r => r.RacersCount).ToList();
                     break;
                 case "part_desc":
-                    races = races.OrderByDescending(r => r.Racers.Count);
+                    races = races.OrderByDescending(r => r.RacersCount).ToList();
                     break;
                 default:
-                    races = races.OrderBy(r => r.Name);
+                    races = races.OrderBy(r => r.Name).ToList();
                     break;
             }
 
@@ -90,8 +99,11 @@
         {
             var race = this.racesRepository.All().FirstOrDefault(x => x.Id == id);
 
+            var count = this.racersRaceRepository.All().Where(x => x.RaceId == id).Count();
+
             var result = new ByIdViewModel
             {
+                Id = race.Id,
                 Name = race.Name,
                 OrganizerName = this.usersRepository
                     .All()
@@ -99,7 +111,7 @@
                     .UserName,
                 Description = race.Description,
                 Distance = race.Distance,
-                Racers = race.Racers,
+                RacersCount = count,
                 Results = race.Results,
             };
 

@@ -10,6 +10,6 @@ namespace TichTich.Web.ViewModels.Races
     {
         public RacesSortViewModel SortedModel { get; set; }
 
-        public IPagedList<Race> Races { get; set; }
+        public IPagedList<ByIdViewModel> Races { get; set; }
     }
 }

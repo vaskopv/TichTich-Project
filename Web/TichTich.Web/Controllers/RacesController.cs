@@ -80,7 +80,7 @@
                 CurrentSort = sortOrder,
                 NameSortPattern = string.IsNullOrEmpty(sortOrder) ? "name_desc" : string.Empty,
                 DistanceSortPattern = sortOrder == "Distance" ? "dist_desc" : "Distance",
-                ParticipantsSortPattern = sortOrder == "Participants" ? "part_asc" : "Participants",
+                ParticipantsSortPattern = sortOrder == "Participants" ? "part_desc" : "Participants",
             };
 
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);

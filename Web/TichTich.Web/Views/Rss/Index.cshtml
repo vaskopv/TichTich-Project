@@ -5,34 +5,38 @@
 <h2>News Feed</h2>
 <hr />
 <br />
-@using (Html.BeginForm("Index", "Rss", FormMethod.Get))
-{
-    <p>
-        Find by name: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
-        <input type="submit" value="Search" />
-    </p>
+
+    <table id="rssfeed" class="table table-striped table-bordered" style="width:100%">
+        <thead class="thead-light">
+            <tr>
+                <th>Source</th>
+                <th>Title</th>
+                <th>Link</th>
+                <th>Publish Date</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td><img src="@item.ImageUrl" width="100" class="mr-3" alt="@item.Source"></td>
+                    <td>@item.Title</td>
+                    <td><a href="@item.Source" target="_blank">Read Here</a></td>
+                    <td>@item.PubDate.ToString("dd-MM-yyyy")</td>
+                </tr>
+
+            }
+        </tbody>
+    </table>
+
+@section Scripts{
+    <script>
+        $(document).ready(function () {
+            $('#rssfeed').DataTable({
+                "pagingType": "simple_numbers"
+            });
+            $('.dataTables_length').addClass('bs-select');
+        });
+    </script>
 }
 
-<br />
-<table class="table table-hover">
-    <thead>
-        <tr>
-            <th>Source</th>
-            <th>Title</th>
-            <th>Link</th>
-            <th>Publish Date</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td><img src="@item.ImageUrl" width="100" class="mr-3" alt="@item.Source"></td>
-                <td>@item.Title</td>
-                <td><a href="@item.Source" target="_blank">Read Here</a></td>
-                <td>@item.PubDate.ToString("dd-MM-yyyy")</td>
-            </tr>
-
-        }
-    </tbody>
-</table>

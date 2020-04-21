@@ -7,6 +7,8 @@ namespace TichTich.Web.ViewModels.Races
 {
     public class ByIdViewModel
     {
+        public int Id { get; set; }
+
         public string Name { get; set; }
 
         public string Description { get; set; }
@@ -15,8 +17,8 @@ namespace TichTich.Web.ViewModels.Races
 
         public double Distance { get; set; }
 
-        public ICollection<Result> Results { get; set; }
+        public int RacersCount { get; set; }
 
-        public ICollection<RacerRace> Racers { get; set; }
+        public ICollection<Result> Results { get; set; }
     }
 }

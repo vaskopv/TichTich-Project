@@ -16,7 +16,7 @@
 
         public ByIdViewModel GetById(int id);
 
-        public IEnumerable<Race> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId);
+        public IEnumerable<ByIdViewModel> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId);
 
         Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
     }
