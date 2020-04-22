@@ -1,6 +1,9 @@
-﻿@{
-    this.ViewData["Title"] = "Races";
-}
+﻿<head>
+    @{
+        this.ViewData["Title"] = "Races";
+    }
+</head>
+
 
 <br />
 <h2>Races</h2>
@@ -24,8 +27,8 @@
                 <td>@item.Distance</td>
                 <td>
                     @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
-                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
-                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    @Html.ActionLink("Details", "ById", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id }) |
                 </td>
             </tr>
         }
@@ -41,5 +44,4 @@
             $('.dataTables_length').addClass('bs-select');
         });
     </script>
-
 }
