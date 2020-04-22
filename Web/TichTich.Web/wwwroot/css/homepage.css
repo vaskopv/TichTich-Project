@@ -3,15 +3,6 @@
     padding: 0px;
 }
 
-nav {
-    background-color: #34495e;
-    height: 80px;
-    position: fixed;
-    width: 100vw;
-    top: 0;
-    z-index: 999;
-}
-
 #logo {
     height: 80px;
     margin-left: 20px;
@@ -63,7 +54,7 @@ nav {
 }
 
 
-a {
+a.photo {
     display: none;
     font-size: 35px;
     color: #ffffff !important;

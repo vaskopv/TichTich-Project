@@ -1,32 +1,22 @@
-﻿<link rel="shortcut icon" type="image/x-icon" href="favicon.ico" />
-@using TichTich.Common
-@using TichTich.Data.Models
-@{
+﻿@{
+    //Layout = "~/Views/shared/_Layout.cshtml";
     this.ViewData["Title"] = "Home Page";
 }
+<link href="~/css/homepage.css" rel="stylesheet" />
 
-<div class="text-center">
-    <h1 class="display-4">Welcome to @GlobalConstants.SystemName!</h1>
-    <div class="row">
-        <div class="col-lg-6">
-            <a asp-area="" asp-controller="races" asp-action="Road"> 
-                <figure class="figure">
-                    <img src="../images/RoadRace.jpg" class="figure-img img-fluid rounded" alt="Road">
-                    <figcaption class="figure-caption text-left">
-                        Road races
-                    </figcaption>
-                </figure>
-            </a>
+
+<div>
+    <div class="wrapper">
+        <div class="parent" onclick="">
+            <div class="child bg-one">
+                <a class="photo" asp-area="" asp-controller="races" asp-action="Road">Road races</a>
+            </div>
         </div>
-        <div class="col-lg-6">
-            <a asp-area="" asp-controller="races" asp-action="Trail">
-                <figure class="figure">
-                    <img src="../images/TrailRace.jpg" class="figure-img img-fluid rounded" alt="Trail" >
-                    <figcaption class="figure-caption text-right">
-                        Trail races
-                    </figcaption>
-                </figure>
-            </a>
+
+        <div class="parent right" onclick="">
+            <div class="child bg-two">
+                <a class="photo" asp-area="" asp-controller="races" asp-action="Trail">Trail races</a>
+            </div>
         </div>
     </div>
 </div>
