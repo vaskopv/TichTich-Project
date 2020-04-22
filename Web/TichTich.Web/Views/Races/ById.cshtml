@@ -1,19 +1,15 @@
 ﻿@{
     this.ViewData["Title"] = $"{@Model.Name} Race";
 }
-
-<dl>
-    <dt>Race Name</dt>
-    <dd>@Model.Name</dd>
-</dl>
+<h1>@Model.Name</h1>
+&emsp;&emsp;&emsp;By @Model.OrganizerName
 <br />
-By @Model.OrganizerName
 <br />
-Distance: @Model.Distance km
+Distance: <h3>@Model.Distance km</h3>
 <br />
 <br />
 <dl>
-    <dt>Description</dt>
+    <dt><b>Description:</b></dt>
     <dd>@Model.Description</dd>
 </dl>
 <br />

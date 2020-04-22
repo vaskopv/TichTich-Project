@@ -29,6 +29,7 @@
         public IActionResult ByType(string type)
         {
             var viewModel = new ByTypeViewModel();
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
             var races = this.db.Races
                 .Select(x => new TerrainTypeViewModel()
                 {
@@ -37,6 +38,7 @@
                     Description = x.Description,
                     OrganizerName = x.Organizer.UserName,
                     TerrainType = x.TerrainType,
+                    IsParticipating = this.db.RacerRaces.Any(r => r.RaceId == x.Id && r.RacerId == userId),
                 })
                 .AsEnumerable()
                 .Where(r => r.TerrainType.ToString() == type)

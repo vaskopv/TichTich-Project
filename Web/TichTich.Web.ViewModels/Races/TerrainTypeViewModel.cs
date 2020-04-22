@@ -15,5 +15,9 @@
         public string OrganizerName { get; set; }
 
         public TerrainType TerrainType { get; set; }
+
+        public bool IsParticipating { get; set; }
+
+
     }
 }

@@ -41,7 +41,7 @@ namespace TichTich.Web.Controllers
             await this.db.RacerRaces.AddAsync(racerRace);
             await this.db.SaveChangesAsync();
 
-            return this.View();
+            return this.Redirect("~/races/byid/" + race.Id);
         }
 
         public IActionResult ShowMyRaces()

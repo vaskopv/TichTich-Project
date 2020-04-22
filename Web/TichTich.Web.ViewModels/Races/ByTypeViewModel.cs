@@ -7,5 +7,6 @@
         public IEnumerable<TerrainTypeViewModel> Races { get; set; }
 
         public string TerrainType { get; set; }
+
     }
 }
