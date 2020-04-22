@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using TichTich.Services.Data;
+using TichTich.Web.Controllers.Calculators;
 
 namespace TichTich.Web.Controllers
 {
@@ -23,7 +24,7 @@ namespace TichTich.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult RacePredictor(PredictorInputViewModel input)
+        public IActionResult RacePredictor(RaceTimeInputViewModel input)
         {
             if (!this.ModelState.IsValid)
             {

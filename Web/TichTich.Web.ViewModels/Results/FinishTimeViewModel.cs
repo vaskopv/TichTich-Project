@@ -5,10 +5,11 @@ using System.Text;
 
 namespace TichTich.Web.ViewModels.Results
 {
-    public class ResultsViewModel
+    public class FinishTimeViewModel
     {
-        public string RacerName { get; set; }
-
+        [Required]
+        [RegularExpression("^(?:(?:([01]?\\d|2[0-3]):)?([0-5]?\\d):)?([0-5]?\\d)$", ErrorMessage = "Enter Valid Time")]
+        [Display(Name = "Finish Time")]
         public string FinishTime { get; set; }
     }
 }

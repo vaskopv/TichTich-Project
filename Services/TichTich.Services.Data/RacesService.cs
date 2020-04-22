@@ -59,6 +59,7 @@
 
                 result.Add(new ByIdViewModel
                 {
+                    Id = item.Id,
                     Name = item.Name,
                     Distance = item.Distance,
                     RacersCount = racersCount,
@@ -74,6 +75,7 @@
 
             var result = new ByIdViewModel
             {
+                Id = race.Id,
                 Name = race.Name,
                 OrganizerName = this.usersRepository
                     .All()

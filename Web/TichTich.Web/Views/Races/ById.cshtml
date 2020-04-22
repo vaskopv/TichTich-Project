@@ -2,7 +2,7 @@
     this.ViewData["Title"] = $"{@Model.Name} Race";
 }
 <h1>@Model.Name</h1>
-&emsp;&emsp;&emsp;By @Model.OrganizerName
+By @Model.OrganizerName
 <br />
 <br />
 Distance: <h3>@Model.Distance km</h3>
@@ -15,6 +15,12 @@ Distance: <h3>@Model.Distance km</h3>
 <br />
 <br />
 @if (Model.Results.Count == 0)
+{
+<a href="~/organizers/resultsinput?raceId=@Model.Id" type="button" class="btn btn-primary">Enter Results</a>
+}
+
+
+else 
 {
     <div id="accordion">
         <div class="card">

@@ -1,11 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace TichTich.Web.Controllers
+namespace TichTich.Web.Controllers.Calculators
 {
-    public class PredictorInputViewModel
+    public class RaceTimeInputViewModel
     {
         [Required]
-        [Range(0, 4, ErrorMessage = "Please enter valid time.")]
+        [Range(0, 24, ErrorMessage = "Please enter valid time.")]
         [Display(Name = "Hours")]
         public int Hours { get; set; }
 

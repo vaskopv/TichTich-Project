@@ -1,5 +1,4 @@
-﻿@model TichTich.Web.Controllers.PredictorInputViewModel;
-@{
+﻿@{
     this.ViewData["Title"] = "Race Predictor";
 }
 
@@ -10,11 +9,13 @@
             Enter your half marathon time here to get a prediction for your marathon
             <br><br><br>
                     <form method="post" action="" class="form">
-                        Hr <input id="hours" type="text" placeholder="0-4" name="hours" style="width:40px">&nbsp;&nbsp;
-                        Min <input id="minutes" type="text" placeholder="0-60" name="minutes" style="width:40px">&nbsp;&nbsp;
-                        Sec <input id="seconds" type="text" placeholder="0-60" name="seconds" style="width:40px">
-                        <br><br><br>
-                        <input class="button" type="submit" onclick="calculate()" value="Predict my time">
+                        <input id="finishtime" type="text" placeholder="hh:mm:ss" name="finishtime" style="width:120px">
+
+                        @*Hr <input id="hours" type="text" placeholder="0-4" name="hours" style="width:40px">&nbsp;&nbsp;
+        Min <input id="minutes" type="text" placeholder="0-60" name="minutes" style="width:40px">&nbsp;&nbsp;
+        Sec <input id="seconds" type="text" placeholder="0-60" name="seconds" style="width:40px">
+        <br><br><br>*@
+                        <input class="button" type="submit" onclick="validate()" value="Predict my time">
                         <br><br><br>
                         Result: <input type="text" class="form-control" style="width:90px" value="@ViewBag.Result" />
                     </form>
@@ -23,5 +24,14 @@
 </li>
 
 <script>
-
+    function validate() {
+        var finishTime = document.getElementById('finishtime').value;
+        var timeRegEx = /^(?:(?:([01]?\d|2[0-3]):)?([0-5]?\d):)?([0-5]?\d)$/;
+        var result = timeRegEx.test(finishTime);
+        if (result == false) {
+            alert('Please enter valid time.');
+            return false;
+        }
+        return true;
+    }
 </script>
