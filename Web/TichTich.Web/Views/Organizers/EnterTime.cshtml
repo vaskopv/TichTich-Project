@@ -3,10 +3,11 @@
     this.ViewData["Title"] = "Enter time";
 }
 
-    <form method="post" action="EnterTime" class="form">
+    <form method="post" class="form">
 
-        <input id="raceTime" type="text" placeholder="hh:mm:ss" name="racetime" style="width:140px">
-        <span asp-validation-for="@Model.RaceTime" class="text-danger"></span>
+        <input id="RaceTime" type="time" step="1" asp-for="RaceTime" style="width:140px">
+        <input id="raceId" type="hidden" value="@Model.RaceId" name="raceId"/>
+        <input id="racerId" type="hidden" value="@Model.RacerId" name="racerId"/>
         <br />
-        <input class="button" type="submit" value="Save">
+        <button class="btn btn-info mr-2" type="submit">Confirm</button>
     </form>

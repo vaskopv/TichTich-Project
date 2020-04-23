@@ -51,40 +51,37 @@ namespace TichTich.Web.Controllers
             return this.View(viewModel);
         }
 
-        public IActionResult EnterTime(string racerId, int raceId, FinishTimeViewModel finishTime)
+        public IActionResult EnterTime(string racerId, int raceId)
         {
-            var race = this.db.Races.Where(x => x.Id == raceId).FirstOrDefault();
+            var model = new FinishTimeViewModel
+            {
+                RaceId = raceId,
+                RaceTime = "01:22:32",
+                RacerId = racerId,
+            };
+
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public IActionResult EnterTime(FinishTimeViewModel finishTime)
+        {
+            var race = this.db.Races.Where(x => x.Id == finishTime.RaceId).FirstOrDefault();
 
             var resultInput = new Result
             {
-                FinishTime = TimeSpan.ParseExact(finishTime.ToString(), "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
-                RaceId = raceId,
-                UserId = racerId,
+                FinishTime = TimeSpan.ParseExact(finishTime.RaceTime.ToString(), "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
+                RaceId = finishTime.RaceId,
+                UserId = finishTime.RacerId,
             };
 
             race.Results.Add(resultInput);
+
+            this.db.Races.Update(race);
             this.db.SaveChanges();
 
-            return this.Redirect("~/organizers/results?raceId=" + raceId);
+            return this.Redirect("~/organizers/results?raceId=" + finishTime.RaceId);
         }
-
-        //[HttpPost]
-        //public IActionResult EnterTime(string racerId, int raceId, FinishTimeViewModel finishTime)
-        //{
-        //    var race = this.db.Races.Where(x => x.Id == raceId).FirstOrDefault();
-
-        //    var resultInput = new Result
-        //    {
-        //        FinishTime = TimeSpan.ParseExact(finishTime.ToString(), "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
-        //        RaceId = raceId,
-        //        UserId = racerId,
-        //    };
-
-        //    race.Results.Add(resultInput);
-        //    this.db.SaveChanges();
-
-        //    return this.Redirect("~/organizers/results?raceId=" + raceId);
-        //}
 
         public IActionResult RemoveParticipant()
         {
