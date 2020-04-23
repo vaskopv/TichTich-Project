@@ -1,0 +1,12 @@
+﻿@model TichTich.Web.ViewModels.Results.FinishTimeViewModel;
+@{
+    this.ViewData["Title"] = "Enter time";
+}
+
+    <form method="post" action="EnterTime" class="form">
+
+        <input id="raceTime" type="text" placeholder="hh:mm:ss" name="racetime" style="width:140px">
+        <span asp-validation-for="@Model.RaceTime" class="text-danger"></span>
+        <br />
+        <input class="button" type="submit" value="Save">
+    </form>

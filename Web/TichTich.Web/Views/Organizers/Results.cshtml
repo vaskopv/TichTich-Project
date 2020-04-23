@@ -1,0 +1,33 @@
+﻿@{
+    this.ViewData["Title"] = "Results";
+}
+
+<table class="table table-striped table-bordered" style="width:auto" align="center">
+    <thead>
+        <tr>
+            <th>
+                Racer Name
+            </th>
+            <th>
+                Finish Time
+            </th>
+        </tr>
+    </thead>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.RacerName</td>
+            @if (item.FinishTime.ToString() == "00:00:00")
+            {
+                <td> <a asp-controller="organizers" asp-action="entertime" asp-route-racerid="@item.RacerId" asp-route-raceid ="@item.RaceId" type="button" class="btn btn-primary">Enter Time</a></td>
+            }
+            else
+            {
+                <td>@item.FinishTime.ToString()</td>
+            }
+            
+        </tr>
+    }
+
+
+</table>

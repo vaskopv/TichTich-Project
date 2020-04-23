@@ -13,7 +13,7 @@
 
         public string Race { get; set; }
 
-        public string RaceId { get; set; }
+        public int RaceId { get; set; }
 
         [Required]
         public TimeSpan FinishTime { get; set; }
