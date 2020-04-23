@@ -18,8 +18,8 @@
 
         public ByIdViewModel GetByRaceId(int id);
 
-        //public IEnumerable<ByIdViewModel> GetAllRaces(string sortOrder, string searchString, int? page, RacesSortViewModel sortModel, string userId);
-
         Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
+
+        Task<int> EditAsync(CreateRaceInputModel race);
     }
 }

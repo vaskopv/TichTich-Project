@@ -74,6 +74,37 @@
             return this.RedirectToAction("ById", new { id = raceId });
         }
 
+        public IActionResult Edit(int id)
+        {
+            var race = this.db.Races.Where(x => x.Id == id).FirstOrDefault();
+
+            var editModel = new EditRaceInputViewModel
+            {
+                Id = race.Id,
+                Name = race.Name,
+                Description = race.Description,
+                Distance = race.Distance,
+                TerrainType = race.TerrainType,
+            };
+
+            return this.View(editModel);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Edit(EditRaceInputViewModel input)
+        {
+            var race = this.db.Races.Where(x => x.Id == input.Id).FirstOrDefault();
+
+            race.Id = input.Id;
+            race.Description = input.Description;
+            race.Distance = input.Distance;
+            race.TerrainType = input.TerrainType;
+
+            this.db.Races.Update(race);
+            await this.db.SaveChangesAsync();
+
+            return this.RedirectToAction("ById", new { id = race.Id });
+        }
 
         public IActionResult Index()
         {

@@ -33,7 +33,7 @@ namespace TichTich.Web.Controllers
                 {
                     RacerName = this.db.Users.Where(x => x.Id == item.RacerId).FirstOrDefault().UserName,
                     FinishTime = string.Empty,
-                }) ;
+                });
             }
 
             return this.View(viewModel);

@@ -46,6 +46,10 @@
             return race.Id;
         }
 
+        public Task<int> EditAsync(CreateRaceInputModel race)
+        {
+            throw new NotImplementedException();
+        }
 
         public ICollection<ByIdViewModel> GetByOrganizerId(string id)
         {

@@ -14,14 +14,9 @@ Distance: <h3>@Model.Distance km</h3>
 </dl>
 <br />
 <br />
-@if (Model.Results.Count == 0)
-{
 <a href="~/organizers/resultsinput?raceId=@Model.Id" type="button" class="btn btn-primary">Enter Results</a>
-}
 
 
-else 
-{
     <div id="accordion">
         <div class="card">
             <div class="card-header" id="headingOne">
@@ -53,4 +48,3 @@ else
             </div>
         </div>
     </div>
-}
