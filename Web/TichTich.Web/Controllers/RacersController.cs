@@ -1,27 +1,19 @@
-﻿using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Threading.Tasks;
-using TichTich.Common;
-using TichTich.Data;
-using TichTich.Data.Common.Models;
-using TichTich.Data.Common.Repositories;
-using TichTich.Data.Models;
-
-namespace TichTich.Web.Controllers
+﻿namespace TichTich.Web.Controllers
 {
+    using System.Security.Claims;
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using TichTich.Services.Data;
+
     public class RacersController : BaseController
     {
-        private readonly ApplicationDbContext db;
-        private readonly IDeletableEntityRepository<Race> racesRepository;
+        private readonly IRacersService racersService;
 
-        public RacersController(ApplicationDbContext db, IDeletableEntityRepository<Race> racesRepository)
+        public RacersController(IRacersService racersService)
         {
-            this.db = db;
-            this.racesRepository = racesRepository;
+            this.racersService = racersService;
         }
 
         [Authorize]
@@ -29,25 +21,14 @@ namespace TichTich.Web.Controllers
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            var race = this.db.Races.Where(x => x.Id == raceId).FirstOrDefault();
-            var racerRace = new RacerRace
-            {
-                Race = race,
-                RaceId = race.Id,
-                Racer = this.db.Users.Where(x => x.Id == userId).FirstOrDefault(),
-                RacerId = userId,
-            };
+            await this.racersService.Participate(raceId, userId);
 
-            await this.db.RacerRaces.AddAsync(racerRace);
-            await this.db.SaveChangesAsync();
-
-            return this.Redirect("~/races/byid/" + race.Id);
+            return this.Redirect("~/races/byid/" + raceId);
         }
 
         public IActionResult ShowMyRaces()
         {
             return this.View();
         }
-
     }
 }

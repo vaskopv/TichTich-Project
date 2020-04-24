@@ -1,14 +1,11 @@
-﻿using AutoMapper.Configuration.Annotations;
-using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using TichTich.Services.Data;
-using TichTich.Web.Controllers.Calculators;
-
-namespace TichTich.Web.Controllers
+﻿namespace TichTich.Web.Controllers
 {
+    using System;
+
+    using Microsoft.AspNetCore.Mvc;
+    using TichTich.Services.Data;
+    using TichTich.Web.Controllers.Calculators;
+
     public class CalculatorsController : BaseController
     {
         private readonly ICalculatorsService calculatorsService;

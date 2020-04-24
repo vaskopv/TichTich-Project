@@ -13,7 +13,6 @@
     using TichTich.Web.ViewModels.Races;
 
     public class RacesController : BaseController
-
     {
         private readonly ApplicationDbContext db;
         private readonly IRacesService racesService;
@@ -26,10 +25,20 @@
             this.userManager = userManager;
         }
 
+        public IActionResult Index()
+        {
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var races = this.racesService.GetByOrganizerId(userId);
+
+            return this.View(races);
+        }
+
         public IActionResult ByType(string type)
         {
-            var viewModel = new ByTypeViewModel();
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = new ByTypeViewModel();
             var races = this.db.Races
                 .Select(x => new TerrainTypeViewModel()
                 {
@@ -76,60 +85,29 @@
 
         public IActionResult Edit(int id)
         {
-            var race = this.db.Races.Where(x => x.Id == id).FirstOrDefault();
+            var viewModel = this.racesService.Edit(id);
 
-            var editModel = new EditRaceInputViewModel
-            {
-                Id = race.Id,
-                Name = race.Name,
-                Description = race.Description,
-                Distance = race.Distance,
-                TerrainType = race.TerrainType,
-            };
-
-            return this.View(editModel);
-        }
-
-        public IActionResult Delete(int id)
-        {
-            var race = this.db.Races.Where(x => x.Id == id).FirstOrDefault();
-
-            var racersRace = this.db.RacerRaces.Where(x => x.RaceId == race.Id).ToList();
-
-            foreach (var item in racersRace)
-            {
-                this.db.RacerRaces.Remove(item);
-            }
-
-            this.db.Races.Remove(race);
-            this.db.SaveChanges();
-
-            return this.RedirectToAction("Index", "Races");
+            return this.View(viewModel);
         }
 
         [HttpPost]
         public async Task<IActionResult> Edit(EditRaceInputViewModel input)
         {
-            var race = this.db.Races.Where(x => x.Id == input.Id).FirstOrDefault();
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(input);
+            }
 
-            race.Id = input.Id;
-            race.Description = input.Description;
-            race.Distance = input.Distance;
-            race.TerrainType = input.TerrainType;
+            var viewModel = await this.racesService.EditAsync(input);
 
-            this.db.Races.Update(race);
-            await this.db.SaveChangesAsync();
-
-            return this.RedirectToAction("ById", new { id = race.Id });
+            return this.RedirectToAction("ById", new { id = viewModel });
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Delete(int id)
         {
-            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+            await this.racesService.Delete(id);
 
-            var races = this.racesService.GetByOrganizerId(userId);
-
-            return this.View(races);
+            return this.RedirectToAction("Index", "Races");
         }
 
         public IActionResult ById(int id)

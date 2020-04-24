@@ -8,6 +8,6 @@ namespace TichTich.Services.Data
 {
     public interface IRacersService
     {
-        public Task Participate();
+        public Task Participate(int raceId, string userId);
     }
 }

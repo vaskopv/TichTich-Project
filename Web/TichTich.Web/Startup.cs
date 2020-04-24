@@ -66,6 +66,8 @@
             services.AddTransient<IRacesService, RacesService>();
             services.AddTransient<ICalculatorsService, CalculatorsService>();
             services.AddTransient<IRssService, RssService>();
+            services.AddTransient<IOrganizersService, OrganizersService>();
+            services.AddTransient<IRacersService, RacersService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

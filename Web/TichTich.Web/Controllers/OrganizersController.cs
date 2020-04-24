@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore.Query;
 using System;
 using System.Collections.Generic;
@@ -8,6 +9,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using TichTich.Data;
 using TichTich.Data.Models;
+using TichTich.Services.Data;
 using TichTich.Web.ViewModels.Races;
 using TichTich.Web.ViewModels.Results;
 
@@ -15,39 +17,16 @@ namespace TichTich.Web.Controllers
 {
     public class OrganizersController : BaseController
     {
-        private readonly ApplicationDbContext db;
+        private readonly IOrganizersService organizersService;
 
-        public OrganizersController(ApplicationDbContext db)
+        public OrganizersController(IOrganizersService organizersService)
         {
-            this.db = db;
+            this.organizersService = organizersService;
         }
 
         public IActionResult Results(int raceId)
         {
-            var race = this.db.Races.Where(x => x.Id == raceId).FirstOrDefault();
-            var racers = this.db.RacerRaces.Where(x => x.RaceId == raceId).ToList();
-
-            var viewModel = new List<ResultsViewModel>();
-
-            foreach (var item in racers)
-            {
-                var finishtime = this.db.Results.Where(x => x.UserId == item.RacerId && x.RaceId == race.Id).Select(x => x.FinishTime).FirstOrDefault();
-                var outputTime = string.Empty;
-
-                if (finishtime != null)
-                {
-                    outputTime = finishtime.ToString("hh\\:mm\\:ss");
-                }
-
-                viewModel.Add(new ResultsViewModel
-                {
-                    RaceId = raceId,
-                    RacerId = item.RacerId,
-                    RacerName = this.db.Users.Where(x => x.Id == item.RacerId).FirstOrDefault().UserName,
-                    FinishTime = outputTime,
-                });
-            }
-
+            var viewModel = this.organizersService.Results(raceId);
             return this.View(viewModel);
         }
 
@@ -56,7 +35,7 @@ namespace TichTich.Web.Controllers
             var model = new FinishTimeViewModel
             {
                 RaceId = raceId,
-                RaceTime = "01:22:32",
+                RaceTime = "00:00:00",
                 RacerId = racerId,
             };
 
@@ -64,21 +43,9 @@ namespace TichTich.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult EnterTime(FinishTimeViewModel finishTime)
+        public async Task<IActionResult> EnterTime(FinishTimeViewModel finishTime)
         {
-            var race = this.db.Races.Where(x => x.Id == finishTime.RaceId).FirstOrDefault();
-
-            var resultInput = new Result
-            {
-                FinishTime = TimeSpan.ParseExact(finishTime.RaceTime.ToString(), "hh\\:mm\\:ss", CultureInfo.InvariantCulture),
-                RaceId = finishTime.RaceId,
-                UserId = finishTime.RacerId,
-            };
-
-            race.Results.Add(resultInput);
-
-            this.db.Races.Update(race);
-            this.db.SaveChanges();
+            await this.organizersService.EnterTimeAsync(finishTime);
 
             return this.Redirect("~/organizers/results?raceId=" + finishTime.RaceId);
         }

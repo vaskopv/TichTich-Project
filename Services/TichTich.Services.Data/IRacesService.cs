@@ -1,9 +1,8 @@
 ﻿namespace TichTich.Services.Data
 {
-    using System;
     using System.Collections.Generic;
-    using System.Text;
     using System.Threading.Tasks;
+
     using TichTich.Data.Models;
     using TichTich.Data.Models.Enums;
     using TichTich.Web.ViewModels.Races;
@@ -20,6 +19,10 @@
 
         Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
 
-        Task<int> EditAsync(CreateRaceInputModel race);
+        Task<int> EditAsync(EditRaceInputViewModel race);
+
+        public EditRaceInputViewModel Edit(int id);
+
+        public Task Delete(int id);
     }
 }
