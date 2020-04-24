@@ -90,6 +90,23 @@
             return this.View(editModel);
         }
 
+        public IActionResult Delete(int id)
+        {
+            var race = this.db.Races.Where(x => x.Id == id).FirstOrDefault();
+
+            var racersRace = this.db.RacerRaces.Where(x => x.RaceId == race.Id).ToList();
+
+            foreach (var item in racersRace)
+            {
+                this.db.RacerRaces.Remove(item);
+            }
+
+            this.db.Races.Remove(race);
+            this.db.SaveChanges();
+
+            return this.RedirectToAction("Index", "Races");
+        }
+
         [HttpPost]
         public async Task<IActionResult> Edit(EditRaceInputViewModel input)
         {

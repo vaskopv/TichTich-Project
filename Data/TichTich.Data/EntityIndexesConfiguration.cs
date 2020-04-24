@@ -2,9 +2,8 @@
 {
     using System.Linq;
 
-    using TichTich.Data.Common.Models;
-
     using Microsoft.EntityFrameworkCore;
+    using TichTich.Data.Common.Models;
 
     internal static class EntityIndexesConfiguration
     {

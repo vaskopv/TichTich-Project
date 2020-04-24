@@ -7,23 +7,24 @@
 <h1>List of @Model.TerrainType Races!</h1>
 
 @foreach (var race in Model.Races)
-{
-    <div class="card" style="width: 22rem;">
+    {
+<div class="card" style="width: 22rem;">
         <div class="card-body">
             <h5 class="card-title">@race.Name</h5>
             <h6 class="card-subtitle mb-2 text-muted">@race.OrganizerName</h6>
             <p class="card-text">@race.Description</p>
-           
+
             <div class="btn-group mb-4" role="group" aria-label="racer options">
                 <a href="~/races/byid/@race.Id" type="button" class="btn btn-success">View Race</a>
                 @if (!race.IsParticipating)
                 {
             <a href="~/racers/participate?raceId=@race.Id" type="button" class="btn btn-primary">Participate</a>
                 }
-                
-                
-            </div>           
+
+
+            </div>
 
         </div>
     </div>
 }
+
