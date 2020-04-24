@@ -31,7 +31,7 @@ namespace TichTich.Web.Controllers
 
             foreach (var item in racers)
             {
-                var finishtime = race.Results.Where(x => x.UserId == item.RacerId).Select(x => x.FinishTime).FirstOrDefault();
+                var finishtime = this.db.Results.Where(x => x.UserId == item.RacerId && x.RaceId == race.Id).Select(x => x.FinishTime).FirstOrDefault();
                 var outputTime = string.Empty;
 
                 if (finishtime != null)
