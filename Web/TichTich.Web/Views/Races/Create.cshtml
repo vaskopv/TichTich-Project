@@ -3,36 +3,54 @@
 @{
     this.ViewData["Title"] = "Create race";
 }
+<style>
+    img {
+        width: 100%;
+        height: auto;
+    }
+</style>
 
 <h1>@this.ViewData["Title"]</h1>
 
-<div class="col-md-4">
-    <form method="post" asp-action="Create">
-        <div class="form-group">
-            <label asp-for="Name"></label>
-            <input asp-for="Name" class="form-control" />
-            <span asp-validation-for="Name" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Distance"></label>
-            <input asp-for="Distance" class="form-control" />
-            <span asp-validation-for="Distance" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="Description"></label>
-            <textarea asp-for="Description" class="form-control" rows="3"></textarea>
-            <span asp-validation-for="Description" class="text-danger"></span>
-        </div>
-        <div class="form-group">
-            <label asp-for="TerrainType"></label>
-            @Html.DropDownList("TerrainType",
-                        new SelectList(Enum.GetValues(typeof(TerrainType))),
-                        "Selecy Terrain Type",
-                        new { @class = "form-control" })
-            <span asp-validation-for="TerrainType" class="text-danger" />
 
-        </div>
-        <br />
-        <input type="submit" id="create" class="btn btn-primary" value="Create" />
-    </form>
+<div class="row">
+    <div class="col-md-6 col-md-offset-2">
+        <section>
+            <img src="~/images/createrace.png" alt="viewrace" class="img-responsive" />
+        </section>
+    </div>
+    <div class="col-md-4">
+        <section>
+            <div style="margin-bottom:10px">
+                <form method="post" asp-action="Create">
+                    <div class="form-group">
+                        <label asp-for="Name"></label>
+                        <input asp-for="Name" class="form-control" />
+                        <span asp-validation-for="Name" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Distance"></label>
+                        <input asp-for="Distance" class="form-control" />
+                        <span asp-validation-for="Distance" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="Description"></label>
+                        <textarea asp-for="Description" class="form-control" rows="3"></textarea>
+                        <span asp-validation-for="Description" class="text-danger"></span>
+                    </div>
+                    <div class="form-group">
+                        <label asp-for="TerrainType"></label>
+                        @Html.DropDownList("TerrainType",
+                                    new SelectList(Enum.GetValues(typeof(TerrainType))),
+                                    "Selecy Terrain Type",
+                                    new { @class = "form-control" })
+                        <span asp-validation-for="TerrainType" class="text-danger" />
+
+                    </div>
+                    <br />
+                    <input type="submit" id="create" class="btn btn-primary" value="Create" />
+                </form>
+            </div>
+        </section>
+    </div>
 </div>

@@ -28,26 +28,27 @@
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <partial name="_LoginPartial" />
-                        <ul class="navbar-nav flex-grow-1">
-                            @if (this.User.IsInRole(GlobalConstants.OrganizerRoleName))
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Races" asp-action="Create">Create Race</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Races" asp-action="Index">All Races</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Rss" asp-action="Index">News</a>
-                                </li>
-                            }
-                            @if (this.User.Identity.IsAuthenticated)
-                            {
-                                <li class="nav-item">
-                                    <a class="nav-link text-dark" asp-area="" asp-controller="Calculators" asp-action="RacePredictor">Predictor</a>
-                                </li>
-                            }
-                        </ul>
+                    <ul class="navbar-nav flex-grow-1">
+                        @if (this.User.IsInRole(GlobalConstants.OrganizerRoleName))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Races" asp-action="Create">Create Race</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Races" asp-action="Index">All Races</a>
+                            </li>
+                        }
+                        @if (this.User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Rss" asp-action="Index">News</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Calculators" asp-action="RacePredictor">Predictor</a>
+                            </li>
+                        }
+                    </ul>
                     </div>
 
                 </div>

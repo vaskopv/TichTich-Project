@@ -3,17 +3,32 @@
     this.ViewData["Title"] = "Enter time";
 }
     <style>
-
-        div.gfield_time_ampm {
-            display: none
+        img {
+            width: 100%;
+            height: auto;
         }
     </style>
 
-    <form method="post" class="form">
-
-        <input id="RaceTime" type="time" step="1" asp-for="RaceTime" style="width:140px">
-        <input id="raceId" type="hidden" value="@Model.RaceId" name="raceId"/>
-        <input id="racerId" type="hidden" value="@Model.RacerId" name="racerId"/>
-        <br />
-        <button class="btn btn-info mr-2" type="submit">Confirm</button>
-    </form>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <img src="~/images/entertime.png" alt="viewrace" class="img-responsive" />
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section>
+                <div style="margin-bottom:10px">
+                    <br /><br /><br />
+                    <form method="post" class="form">
+                        <input id="RaceTime" type="time" step="1" asp-for="RaceTime" style="width:140px">
+                        <input id="raceId" type="hidden" value="@Model.RaceId" name="raceId" />
+                        <input id="racerId" type="hidden" value="@Model.RacerId" name="racerId" />
+                        <br />
+                        <br />
+                        <br />
+                        <button class="btn btn-info mr-2" type="submit">Confirm</button>
+                    </form>
+                </div>
+            </section>
+        </div>
+    </div>

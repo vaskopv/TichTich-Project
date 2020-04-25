@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
-using TichTich.Data.Models.Enums;
-
-namespace TichTich.Web.ViewModels.Races
+﻿namespace TichTich.Web.ViewModels.Races
 {
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    using TichTich.Data.Models.Enums;
+
     public class CreateRaceInputModel
     {
         [Required]

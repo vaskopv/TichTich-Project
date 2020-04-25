@@ -1,24 +1,46 @@
 ﻿@{
     this.ViewData["Title"] = $"{@Model.Name} Race";
 }
-<h1>@Model.Name</h1>
-By @Model.OrganizerName
-<br />
-<br />
-Distance: <h3>@Model.Distance km</h3>
-<br />
-<br />
-<dl>
-    <dt><b>Description:</b></dt>
-    <dd>@Model.Description</dd>
-</dl>
-<br />
-<br />
-@if (User.IsInRole(TichTich.Common.GlobalConstants.OrganizerRoleName))
-{
-    <a href="~/organizers/results?raceId=@Model.Id" type="button" class="btn btn-primary">Results</a>
-}
-@if (!Model.IsParticipating)
-{
-    <a href="~/racers/participate?raceId=@Model.Id" type="button" class="btn btn-primary">Participate</a>
-}
+    <style>
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
+
+    <div class="row">
+        <div class="col-md-6 col-md-offset-2">
+            <section>
+                <img src="~/images/layout.jpg" alt="viewrace" class="img-responsive" />
+            </section>
+        </div>
+        <div class="col-md-4">
+            <section>
+                <div style="margin-bottom:10px">
+                    <div class="infobox_standard infobox_style2" style="text-align:center">
+                        <h1>@Model.Name</h1>
+                        By @Model.OrganizerName
+                        <br />
+                        <br />
+                        Distance: <h3>@Model.Distance km</h3>
+                        <br />
+                        <br />
+                        <dl>
+                            <dt><b>Description:</b></dt>
+                            <dd>@Model.Description</dd>
+                        </dl>
+                        <br />
+                        <br />
+                        @if (User.IsInRole(TichTich.Common.GlobalConstants.OrganizerRoleName))
+                        {
+                            <a href="~/organizers/results?raceId=@Model.Id" type="button" class="btn btn-primary">Results</a>
+                        }
+                        @if (!Model.IsParticipating)
+                        {
+                            <a href="~/racers/participate?raceId=@Model.Id" type="button" class="btn btn-primary">Participate</a>
+                        }
+                    </div>
+                </div>
+            </section>
+        </div>
+    </div>
