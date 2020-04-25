@@ -1,13 +1,12 @@
 ﻿namespace TichTich.Web.Areas.Administration.Controllers
 {
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
     using TichTich.Common;
     using TichTich.Web.Controllers;
 
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Mvc;
-
     [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-    [Area("Administration")]
+    [Area(GlobalConstants.AdministratorRoleName)]
     public class AdministrationController : BaseController
     {
     }

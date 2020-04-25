@@ -25,10 +25,5 @@
 
             return this.Redirect("~/races/byid/" + raceId);
         }
-
-        public IActionResult ShowMyRaces()
-        {
-            return this.View();
-        }
     }
 }

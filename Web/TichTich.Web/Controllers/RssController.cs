@@ -1,6 +1,5 @@
 ﻿namespace ReadRSSFeed.Controllers
 {
-
     using Microsoft.AspNetCore.Mvc;
     using TichTich.Services.Data;
 

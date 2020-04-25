@@ -1,9 +1,6 @@
 ﻿namespace TichTich.Web.Controllers
 {
-    using System.Diagnostics;
-
     using Microsoft.AspNetCore.Mvc;
-    using TichTich.Web.ViewModels;
 
     public class HomeController : BaseController
     {

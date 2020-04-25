@@ -1,20 +1,13 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using Microsoft.CodeAnalysis.CSharp.Syntax;
-using Microsoft.EntityFrameworkCore.Query;
-using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
-using System.Linq;
-using System.Threading.Tasks;
-using TichTich.Data;
-using TichTich.Data.Models;
-using TichTich.Services.Data;
-using TichTich.Web.ViewModels.Races;
-using TichTich.Web.ViewModels.Results;
-
-namespace TichTich.Web.Controllers
+﻿namespace TichTich.Web.Controllers
 {
+    using System.Threading.Tasks;
+
+    using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Mvc;
+    using TichTich.Common;
+    using TichTich.Services.Data;
+    using TichTich.Web.ViewModels.Results;
+
     public class OrganizersController : BaseController
     {
         private readonly IOrganizersService organizersService;
@@ -24,12 +17,14 @@ namespace TichTich.Web.Controllers
             this.organizersService = organizersService;
         }
 
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public IActionResult Results(int raceId)
         {
             var viewModel = this.organizersService.Results(raceId);
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public IActionResult EnterTime(string racerId, int raceId)
         {
             var model = new FinishTimeViewModel
@@ -43,10 +38,16 @@ namespace TichTich.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public async Task<IActionResult> EnterTime(FinishTimeViewModel finishTime)
         {
-            await this.organizersService.EnterTimeAsync(finishTime);
 
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(finishTime);
+            }
+
+            await this.organizersService.EnterTimeAsync(finishTime);
             return this.Redirect("~/organizers/results?raceId=" + finishTime.RaceId);
         }
 

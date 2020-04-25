@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace TichTich.Data.Migrations
+﻿namespace TichTich.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedDistanceRaceModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -23,7 +23,7 @@ namespace TichTich.Data.Migrations
                 columns: table => new
                 {
                     DistanceId = table.Column<int>(nullable: false),
-                    RaceId = table.Column<int>(nullable: false)
+                    RaceId = table.Column<int>(nullable: false),
                 },
                 constraints: table =>
                 {

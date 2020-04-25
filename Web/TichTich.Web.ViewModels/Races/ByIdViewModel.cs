@@ -17,6 +17,8 @@ namespace TichTich.Web.ViewModels.Races
 
         public int RacersCount { get; set; }
 
+        public bool IsParticipating { get; set; }
+
         public ICollection<Result> Results { get; set; }
     }
 }

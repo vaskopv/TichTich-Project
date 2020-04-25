@@ -1,11 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TichTich.Web.ViewModels.Results;
-
-namespace TichTich.Services.Data
+﻿namespace TichTich.Services.Data
 {
+    using System.Collections.Generic;
+    using System.Threading.Tasks;
+
+    using TichTich.Web.ViewModels.Results;
+
     public interface IOrganizersService
     {
         ICollection<ResultsViewModel> Results(int id);

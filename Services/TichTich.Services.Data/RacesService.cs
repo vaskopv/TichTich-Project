@@ -93,7 +93,7 @@
             return result;
         }
 
-        public ByIdViewModel GetByRaceId(int id)
+        public ByIdViewModel GetByRaceId(int id, string userId)
         {
             var race = this.racesRepository.All().Where(x => x.Id == id).FirstOrDefault();
 
@@ -108,6 +108,7 @@
                 Distance = race.Distance,
                 Description = race.Description,
                 Results = race.Results,
+                IsParticipating = this.racersRaceRepository.All().Any(r => r.RaceId == id && r.RacerId == userId),
             };
 
             return result;

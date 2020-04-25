@@ -47,6 +47,11 @@
                         options.MinimumSameSitePolicy = SameSiteMode.None;
                     });
 
+            services.AddAntiforgery(options =>
+            {
+                options.HeaderName = "X-CSRF-TOKEN";
+            });
+
             services.AddControllersWithViews(options =>
             {
                 options.Filters.Add(new AutoValidateAntiforgeryTokenAttribute()); // CSRF
@@ -92,7 +97,8 @@
             {
                 app.UseDeveloperExceptionPage();
                 app.UseStatusCodePagesWithRedirects("/Home/Error?statusCode={0}");
-                app.UseDatabaseErrorPage();
+                //app.UseDatabaseErrorPage();
+                app.UseExceptionHandler("/Home/Error");
             }
             else
             {

@@ -1,11 +1,7 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
-using TichTich.Data.Models;
-
-namespace TichTich.Services.Data
+﻿namespace TichTich.Services.Data
 {
+    using System.Threading.Tasks;
+
     public interface IRacersService
     {
         public Task Participate(int raceId, string userId);

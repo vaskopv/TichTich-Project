@@ -1,14 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Security.Claims;
-using System.Text;
-using System.Threading.Tasks;
-using TichTich.Data.Common.Repositories;
-using TichTich.Data.Models;
-
-namespace TichTich.Services.Data
+﻿namespace TichTich.Services.Data
 {
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using TichTich.Data.Common.Repositories;
+    using TichTich.Data.Models;
+
     public class RacersService : IRacersService
     {
         private readonly IDeletableEntityRepository<Race> racesRepository;

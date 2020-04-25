@@ -15,7 +15,7 @@
 
         public ICollection<ByIdViewModel> GetByOrganizerId(string id);
 
-        public ByIdViewModel GetByRaceId(int id);
+        public ByIdViewModel GetByRaceId(int id, string userId);
 
         Task<int> CreateAsync(string name, double distance, string description, string orgnizerId, TerrainType terrainType);
 

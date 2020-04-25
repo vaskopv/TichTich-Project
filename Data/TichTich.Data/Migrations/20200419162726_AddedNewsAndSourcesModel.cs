@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace TichTich.Data.Migrations
+﻿namespace TichTich.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedNewsAndSourcesModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -19,7 +20,7 @@ namespace TichTich.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     Name = table.Column<string>(nullable: true),
                     ImageUrl = table.Column<string>(nullable: true),
-                    SourceUrl = table.Column<string>(nullable: true)
+                    SourceUrl = table.Column<string>(nullable: true),
                 },
                 constraints: table =>
                 {

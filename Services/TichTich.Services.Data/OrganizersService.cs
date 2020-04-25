@@ -1,15 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TichTich.Data.Common.Repositories;
-using TichTich.Data.Models;
-using TichTich.Web.ViewModels.Results;
-
-namespace TichTich.Services.Data
+﻿namespace TichTich.Services.Data
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Globalization;
+    using System.Linq;
+    using System.Threading.Tasks;
+
+    using TichTich.Data.Common.Repositories;
+    using TichTich.Data.Models;
+    using TichTich.Web.ViewModels.Results;
+
     public class OrganizersService : IOrganizersService
     {
         private readonly IDeletableEntityRepository<Race> racesRepository;

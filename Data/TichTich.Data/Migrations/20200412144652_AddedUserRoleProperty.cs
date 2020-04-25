@@ -1,7 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace TichTich.Data.Migrations
+﻿namespace TichTich.Data.Migrations
 {
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class AddedUserRoleProperty : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using TichTich.Web.Controllers;
-using TichTich.Web.Controllers.Calculators;
-
-namespace TichTich.Services.Data
+﻿namespace TichTich.Services.Data
 {
+    using System;
+
+    using TichTich.Web.Controllers.Calculators;
+
     public class CalculatorsService : ICalculatorsService
     {
         public double Calculate(RaceTimeInputViewModel input)

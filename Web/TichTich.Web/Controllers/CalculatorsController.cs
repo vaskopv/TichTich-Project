@@ -2,6 +2,7 @@
 {
     using System;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Mvc;
     using TichTich.Services.Data;
     using TichTich.Web.Controllers.Calculators;
@@ -15,11 +16,13 @@
             this.calculatorsService = calculatorsService;
         }
 
+        [Authorize]
         public IActionResult RacePredictor()
         {
             return this.View();
         }
 
+        [Authorize]
         [HttpPost]
         public IActionResult RacePredictor(RaceTimeInputViewModel input)
         {

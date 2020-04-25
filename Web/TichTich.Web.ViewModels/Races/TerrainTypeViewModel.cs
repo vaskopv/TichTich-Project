@@ -12,12 +12,12 @@
 
         public string Description { get; set; }
 
+        public double Distance { get; set; }
+
         public string OrganizerName { get; set; }
 
         public TerrainType TerrainType { get; set; }
 
         public bool IsParticipating { get; set; }
-
-
     }
 }

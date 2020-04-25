@@ -1,8 +1,9 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
-
-namespace TichTich.Data.Migrations
+﻿namespace TichTich.Data.Migrations
 {
+    using System;
+
+    using Microsoft.EntityFrameworkCore.Migrations;
+
     public partial class RemovedDistanceModel : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -37,7 +38,7 @@ namespace TichTich.Data.Migrations
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     Length = table.Column<double>(type: "float", nullable: false),
                     ModifiedOn = table.Column<DateTime>(type: "datetime2", nullable: true),
-                    Type = table.Column<int>(type: "int", nullable: false)
+                    Type = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {
@@ -49,7 +50,7 @@ namespace TichTich.Data.Migrations
                 columns: table => new
                 {
                     DistanceId = table.Column<int>(type: "int", nullable: false),
-                    RaceId = table.Column<int>(type: "int", nullable: false)
+                    RaceId = table.Column<int>(type: "int", nullable: false),
                 },
                 constraints: table =>
                 {

@@ -1,12 +1,13 @@
 ﻿namespace TichTich.Web.Controllers
 {
-    using System;
     using System.Linq;
     using System.Security.Claims;
     using System.Threading.Tasks;
 
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
+    using TichTich.Common;
     using TichTich.Data;
     using TichTich.Data.Models;
     using TichTich.Services.Data;
@@ -25,6 +26,7 @@
             this.userManager = userManager;
         }
 
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public IActionResult Index()
         {
             var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -45,6 +47,7 @@
                     Id = x.Id,
                     Name = x.Name,
                     Description = x.Description,
+                    Distance = x.Distance,
                     OrganizerName = x.Organizer.UserName,
                     TerrainType = x.TerrainType,
                     IsParticipating = this.db.RacerRaces.Any(r => r.RaceId == x.Id && r.RacerId == userId),
@@ -59,6 +62,7 @@
             return this.View(viewModel);
         }
 
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public IActionResult Create()
         {
             if (!this.User.Identity.IsAuthenticated)
@@ -70,6 +74,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public async Task<IActionResult> Create(CreateRaceInputModel input)
         {
             if (!this.ModelState.IsValid)
@@ -83,6 +88,7 @@
             return this.RedirectToAction("ById", new { id = raceId });
         }
 
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public IActionResult Edit(int id)
         {
             var viewModel = this.racesService.Edit(id);
@@ -91,6 +97,7 @@
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public async Task<IActionResult> Edit(EditRaceInputViewModel input)
         {
             if (!this.ModelState.IsValid)
@@ -103,6 +110,7 @@
             return this.RedirectToAction("ById", new { id = viewModel });
         }
 
+        [Authorize(Roles = GlobalConstants.OrganizerRoleName)]
         public async Task<IActionResult> Delete(int id)
         {
             await this.racesService.Delete(id);
@@ -110,9 +118,12 @@
             return this.RedirectToAction("Index", "Races");
         }
 
+        [Authorize]
         public IActionResult ById(int id)
         {
-            var viewModel = this.racesService.GetByRaceId(id);
+            var userId = this.User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            var viewModel = this.racesService.GetByRaceId(id, userId);
 
             return this.View(viewModel);
         }

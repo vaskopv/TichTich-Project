@@ -3,28 +3,54 @@
 @{
     this.ViewData["Title"] = $"{@Model.TerrainType} Race";
 }
+    <style>
+        img {
+            width: 100%;
+            height: auto;
+        }
+    </style>
 
-<h1>List of @Model.TerrainType Races!</h1>
+<h1 style="color:white;">List of @Model.TerrainType Races!</h1>
 
-@foreach (var race in Model.Races)
+<div class="row">
+
+
+
+    @foreach (var race in Model.Races)
     {
-<div class="card" style="width: 22rem;">
-        <div class="card-body">
-            <h5 class="card-title">@race.Name</h5>
-            <h6 class="card-subtitle mb-2 text-muted">@race.OrganizerName</h6>
-            <p class="card-text">@race.Description</p>
+    <div class="col-sm-6 col-md-4">
+        <div class="card" style="width: 18rem;">
+            @if (race.Distance == 42)
+            {
+                <img src="~/images/MarathonLogo.jpg" class="card-img-top" alt="marathon">
+            }
+            else if (race.Distance == 21)
+            {
+                <img src="~/images/HalfLogo.jpg" class="card-img-top" alt="halfmarathon">
+            }
+            else if (race.Distance > 43)
+            {
+                <img src="~/images/UltraLogo.png" class="card-img-top" alt="ultramarathon">
+            }
+            else
+            {
+                <img src="~/images/finish.jpg" class="card-img-top" alt="race">
+            }
+            <div class="card-body">
+                <h5 class="card-title">@race.Name - @race.Distance km</h5>
+                <p class="card-text">@race.Description</p>
 
-            <div class="btn-group mb-4" role="group" aria-label="racer options">
-                <a href="~/races/byid/@race.Id" type="button" class="btn btn-success">View Race</a>
-                @if (!race.IsParticipating)
-                {
-            <a href="~/racers/participate?raceId=@race.Id" type="button" class="btn btn-primary">Participate</a>
-                }
-
-
+                <div class="btn-group mb-4" role="group" aria-label="racer options">
+                    <a href="~/races/byid/@race.Id" type="button" class="btn btn-success">View Race</a>
+                    @if (!race.IsParticipating)
+                    {
+                        <a href="~/racers/participate?raceId=@race.Id" type="button" class="btn btn-primary">Participate</a>
+                    }
+                </div>
             </div>
-
         </div>
+        </div>
+        }
     </div>
-}
+
 
